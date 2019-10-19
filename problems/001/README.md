@@ -1,8 +1,8 @@
 
-# From C how to program
+# From C How to Program 8th Edition
   3.10 Formulating Algorithms with Top-Down, Stepwise Refinement Case Study 3: Nested Control Statements
 
-## Problem : 
+## Problem :
 
 A college offers a course that prepares students for the state licensing exam for realestate
 brokers. Last year, 10 of the students who completed this course took the licensing
