@@ -1,1 +1,85 @@
+#include <stdio.h>
+void menu(unsigned int option);
+typedef struct account{
+ char name[50];
+ char date_of_birth[11];
+ unsigned int citizenship;
+ char address[100];
+ unsigned int phone_number;
+ int age;
+ int account_number;
+ int type_of_account;
+ char date_of_deposit[11];
+ float amount_of_interest;
+ float money;
+ /*1- saving 2-current 3-investment*/
+}acc;
+void new_account(acc l);
+    int clear_input_buffer(){
+        int ch;
+        while(((ch=getchar())!=EOF) && (ch!='\n'));
+        return ch;
+    }
+int main(){
+    unsigned int mode;
+    printf("Welcome to our system\n");
+    printf("please enter mode you want\n");
+    printf("1- create new account\n2-View List\n3-Edit\n4-transact\n5-erase\n6-see\n");
+    scanf("%u",&mode);
+    menu(mode);
+return 0;
+}
+void menu(unsigned int option){
+    acc l;
+switch (option){
+
+case 1:
+new_account(l);
+ break;
+case 2:
+viewlist();
+ break;
+case 3:
+edit();
+ break;
+case 4:
+transact();
+ break;
+case 5:
+erase();
+ break;
+case 6:
+see();
+ break;
+default:
+    printf("please enter a number from 1 to 6 ");
+    break;
+}
+
+
+}
+
+void new_account(acc l){
+FILE *accptr;
+accptr = fopen("clients.txt", "a+");
+printf("Please enter some of personal information to create a new account!\n");
+printf("your name!: ");
+clear_input_buffer();
+gets(l.name);
+printf("date of birth!: ");
+scanf("%s", &l.date_of_birth);
+printf("Your citizenship number!: ");
+scanf("%u", &l.citizenship);
+printf("Your address!: ");
+clear_input_buffer();
+gets(l.address);
+printf("Your phone number!: ");
+scanf("%u", &l.phone_number);
+printf("How much money you want to deposit? ");
+scanf("%f",&l.money);
+printf("What is the type of account you want?\n1-save account.\n2-current account.\n3-investment account.\n choose 1 or 2 or 3: ");
+scanf("%d",&l.type_of_account);
+fwrite(&l,sizeof(acc),1,accptr);
+printf("you are successfully created an account\n)
+}
 
