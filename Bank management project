@@ -1,5 +1,4 @@
 #include <stdio.h>
-void menu(unsigned int option);
 typedef struct account{
  char name[50];
  char date_of_birth[11];
@@ -9,56 +8,59 @@ typedef struct account{
  int age;
  int account_number;
  int type_of_account;
+ /*1- saving 2-current 3-investment*/
  char date_of_deposit[11];
  float amount_of_interest;
  float money;
- /*1- saving 2-current 3-investment*/
 }acc;
-void new_account(acc l);
-    int clear_input_buffer(){
-        int ch;
-        while(((ch=getchar())!=EOF) && (ch!='\n'));
-        return ch;
-    }
+void new_account(acc);
+int clear_input_buffer()
+{
+int ch;
+while(((ch=getchar())!=EOF) && (ch != '\n'));
+return ch;}
+void menu();
 int main(){
-    unsigned int mode;
-    printf("Welcome to our system\n");
-    printf("please enter mode you want\n");
-    printf("1- create new account\n2-View List\n3-Edit\n4-transact\n5-erase\n6-see\n");
-    scanf("%u",&mode);
-    menu(mode);
-return 0;
+  menu();
+
+
+
+
+
+
 }
-void menu(unsigned int option){
+void menu(){
+  printf("Welcome to our system\n");
+  printf("please enter mode you want\n");
+  printf("1- create new account\n2-View List\n3-Edit\n4-transact\n5-erase\n6-see\n");
     acc l;
-switch (option){
+    unsigned int mode;
+    scanf("%u",&mode);
+switch (mode){
 
 case 1:
-new_account(l);
+printf("new_account(l)");
  break;
 case 2:
-viewlist();
+printf("edit");
  break;
 case 3:
-edit();
+printf("viewlist");
  break;
 case 4:
-transact();
+printf("transact");
  break;
 case 5:
-erase();
+printf("erase");
  break;
 case 6:
-see();
+printf("see");
  break;
 default:
     printf("please enter a number from 1 to 6 ");
     break;
 }
-
-
 }
-
 void new_account(acc l){
 FILE *accptr;
 accptr = fopen("clients.txt", "a+");
@@ -80,6 +82,6 @@ scanf("%f",&l.money);
 printf("What is the type of account you want?\n1-save account.\n2-current account.\n3-investment account.\n choose 1 or 2 or 3: ");
 scanf("%d",&l.type_of_account);
 fwrite(&l,sizeof(acc),1,accptr);
-printf("you are successfully created an account\n)
+printf("you are successfully created an account\n");
 }
 
