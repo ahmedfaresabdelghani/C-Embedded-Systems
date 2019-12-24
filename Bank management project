@@ -39,7 +39,7 @@ void menu(){
 switch (mode){
 
 case 1:
-printf("new_account(l)");
+new_account(l);
  break;
 case 2:
 printf("edit");
