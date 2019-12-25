@@ -1,4 +1,5 @@
 #include <stdio.h>
+void menu(unsigned int option);
 typedef struct account{
  char name[50];
  char date_of_birth[11];
@@ -6,70 +7,75 @@ typedef struct account{
  char address[100];
  unsigned int phone_number;
  int age;
- int account_number;
  int type_of_account;
- /*1- saving 2-current 3-investment*/
  char date_of_deposit[11];
  float amount_of_interest;
  float money;
+ unsigned int acc_num;
+ /*1- saving 2-current 3-investment*/
 }acc;
-void new_account(acc);
-int clear_input_buffer()
-{
-int ch;
-while(((ch=getchar())!=EOF) && (ch != '\n'));
-return ch;}
-void menu();
+void new_account(acc l);
+    int clear_input_buffer(){
+        int ch;
+        while(((ch=getchar())!=EOF) && (ch!='\n'));
+        return ch;
+    }
 int main(){
-  menu();
-
-
-
-
-
-
-}
-void menu(){
-  printf("Welcome to our system\n");
-  printf("please enter mode you want\n");
-  printf("1- create new account\n2-View List\n3-Edit\n4-transact\n5-erase\n6-see\n");
-    acc l;
     unsigned int mode;
+    printf("Welcome to our system\n");
+    printf("please enter mode you want\n");
+    printf("1- create new account\n2-View List\n3-Edit\n4-transact\n5-erase\n6-see\n");
     scanf("%u",&mode);
-switch (mode){
+    menu(mode);
+return 0;
+}
+void menu(unsigned int option){
+    acc l;
+    acc v;
+switch (option){
 
 case 1:
 new_account(l);
  break;
 case 2:
-printf("edit");
+viewlist(v);/*
  break;
 case 3:
-printf("viewlist");
+edit();
  break;
 case 4:
-printf("transact");
+transact();
  break;
 case 5:
-printf("erase");
+erase();
  break;
 case 6:
-printf("see");
+see();
  break;
 default:
     printf("please enter a number from 1 to 6 ");
     break;
-}
-}
-void new_account(acc l){
+}*/
+
+
+}}
+
+void new_account(acc l)
+{
 FILE *accptr;
+int n;
 accptr = fopen("clients.txt", "a+");
+fseek(accptr,0,SEEK_END);
+
+n=ftell(accptr);
+l.acc_num=(n/sizeof(acc))+1;
+printf("%u",l.acc_num);
 printf("Please enter some of personal information to create a new account!\n");
 printf("your name!: ");
 clear_input_buffer();
 gets(l.name);
 printf("date of birth!: ");
-scanf("%s", &l.date_of_birth);
+scanf("%s", l.date_of_birth);
 printf("Your citizenship number!: ");
 scanf("%u", &l.citizenship);
 printf("Your address!: ");
@@ -82,6 +88,86 @@ scanf("%f",&l.money);
 printf("What is the type of account you want?\n1-save account.\n2-current account.\n3-investment account.\n choose 1 or 2 or 3: ");
 scanf("%d",&l.type_of_account);
 fwrite(&l,sizeof(acc),1,accptr);
-printf("you are successfully created an account\n");
+printf("%u , %s , %s , %u , %s , %u , %f , %d", l.acc_num, l.name, l.date_of_birth, l.citizenship, l.address, l.phone_number, l.money, l.type_of_account);
+fclose(accptr);
 }
+void viewlist(acc v){//فيو ليست مش راضية تشتغل صح
+FILE *accptr;
+accptr=fopen("project.txt","r");
+printf("%s", "Enter accountnumber: ");
+unsigned int accountnumber;
+scanf("%d", &accountnumber);
+fseek(accptr, (accountnumber - 1) * sizeof(acc),SEEK_SET);
+fread(&v, sizeof(acc), 1, accptr);
+printf("\n name:%s\n address:%s\n phone number:%u\n ",v.name, v.address, v.phone_number);
+fclose(accptr);
+}
+void edit(acc l){
+  unsigned int g ;
+
+  do{
+printf("for changing your phone number please enter 1 \n for changing your adress please enter 2\nfor changing both of them please enter 3 \n  ");
+   scanf("%u",&g);
+
+  if (g==1){
+
+    printf("enter your new phone number: ");
+    scanf("%u",&l.phone_number);
+    }
+    if (g==2){
+      printf("enter your new adress: ");
+      clear_input_buffer();
+        gets(l.address);
+      }
+
+      if (g==3){
+        printf("enter your new phone number: ");
+          scanf("%u",&l.phone_number);
+        printf("enter your new adress: ");
+        clear_input_buffer();
+          gets(l.address);
+
+        }
+
+      }
+      while(g!=1&&g!=2&&g!=3);
+    }
+    void transact(acc z){
+      FILE *accptr;
+      unsigned int o;
+      printf("Please enter account number\n");
+      scanf("%u", &o);
+      accptr = fopen("clients.txt", "w+");
+      fseek(accptr, (o - 1) * sizeof(acc),SEEK_SET);
+      //لسه فى تكملة
+    
+          	 int x;
+          	float  wit;
+          	float  dep;
+          	do {
+          printf("if you want to deposit money press '1' and to withdraw press '2'\n");
+          	scanf("%d",&x);
+          	if (x==1) {
+          		printf("please enter your deposit value\n");
+          		scanf("%f",&dep);
+          		 z.money=	z.money+dep;
+          	 }
+          	 if (x==2){
+          		 printf("please enter your deposit value\n");
+          		 scanf("%f",&wit);
+               if(wit>z.money){
+                 printf("your balance less than this value%f",wit);
+               }
+               else{
+          		 z.money=z.money-wit;
+          	 }
+           }
+           }
+           while(x!=1&&x!=2);
+           printf("%f",z.money);
+    
+    
+      }
+    }
+    }
 
