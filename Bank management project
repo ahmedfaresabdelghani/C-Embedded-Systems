@@ -1,5 +1,5 @@
 #include <stdio.h>
-void menu(unsigned int option);
+void menu();
 
 typedef struct account {
     char name[50];
@@ -27,16 +27,20 @@ int clear_input_buffer() {
 }
 
 int main() {
-    unsigned int mode;
-    printf("Welcome to our system\n");
-    printf("please enter mode you want\n");
-    printf("1- create new account\n\n2-Edit\n3-transact\n4-erase\n5-see\n");
-    scanf("%u", &mode);
-    menu(mode);
+
+
+    menu();
     return 0;
+
+
 }
 
-void menu(unsigned int option) {
+void menu() {
+  unsigned int option;
+  printf("Welcome to our system\n");
+  printf("please enter mode you want\n");
+  printf("1- create new account\n\n2-Edit\n3-transact\n4-erase\n5-see\n");
+  scanf("%u", &option);
     acc l, z;
     switch (option) {
 
