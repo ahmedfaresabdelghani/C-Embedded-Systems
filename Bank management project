@@ -151,6 +151,6 @@ void transact(acc z) {
     } while (i != 1 && i != 2);
     fseek(accptr, offset, SEEK_SET);
     fwrite(&z, sizeof (z), 1, accptr);
-    printf("%f\n", z.money);
+    printf("your balance now is :%f\n", z.money);
     fclose(accptr);
 }
