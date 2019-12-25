@@ -69,7 +69,8 @@ fseek(accptr,0,SEEK_END);
 
 n=ftell(accptr);
 l.acc_num=(n/sizeof(acc))+1;
-printf("%u",l.acc_num);
+
+printf("your account num is%u",l.acc_num);
 printf("Please enter some of personal information to create a new account!\n");
 printf("your name!: ");
 clear_input_buffer();
@@ -88,7 +89,7 @@ scanf("%f",&l.money);
 printf("What is the type of account you want?\n1-save account.\n2-current account.\n3-investment account.\n choose 1 or 2 or 3: ");
 scanf("%d",&l.type_of_account);
 fwrite(&l,sizeof(acc),1,accptr);
-printf("%u , %s , %s , %u , %s , %u , %f , %d", l.acc_num, l.name, l.date_of_birth, l.citizenship, l.address, l.phone_number, l.money, l.type_of_account);
+fprintf("%u , %s , %s , %u , %s , %u , %f , %d", l.acc_num, l.name, l.date_of_birth, l.citizenship, l.address, l.phone_number, l.money, l.type_of_account);
 fclose(accptr);
 }
 void viewlist(acc v){//فيو ليست مش راضية تشتغل صح
